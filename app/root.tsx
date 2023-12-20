@@ -8,9 +8,14 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import globalStyles from "~/styles/global.css";
+import { Header } from "./components/Header";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ...(cssBundleHref ? [
+    { rel: "stylesheet", href: cssBundleHref },
+    { rel: "stylesheet", href: globalStyles }
+  ] : []),
 ];
 
 export default function App() {
@@ -23,11 +28,23 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <Layout />
       </body>
     </html>
   );
 }
+
+const Layout = () => {
+  return (
+    <>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+
+      <ScrollRestoration />
+      <Scripts />
+      <LiveReload />
+    </>
+  )
+  }

@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { RootPage } from "../components/root/Root";
+import { RootPage } from "../features/root";
 
 export const meta: MetaFunction = () => {
   return [
