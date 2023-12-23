@@ -9,6 +9,9 @@ import { Header } from './components/Header';
 import { LoaderFunction } from '@remix-run/node';
 import { useSupabase, SupabaseConnect } from './libs/supabase';
 import { AuthContextProvider } from './provider/AuthContext';
+// react-toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
@@ -58,6 +61,7 @@ const Layout = () => {
         <Header />
         <main>
           <Outlet />
+          <ToastContainer />
         </main>
       </AuthContextProvider>
       <ScrollRestoration />
