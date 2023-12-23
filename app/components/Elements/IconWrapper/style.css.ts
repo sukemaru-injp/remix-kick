@@ -8,8 +8,13 @@ export const wrapper = style({
   cursor: 'pointer',
 });
 
-export const icon = style({
+export const iconWhite = style({
   color: colors.white,
   height: '100%',
   width: '100%',
 });
+export const iconMain = style({
+  color: colors.main,
+  height: '100%',
+  width: '100%',
+})
