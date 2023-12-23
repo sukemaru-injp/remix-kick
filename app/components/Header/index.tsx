@@ -6,7 +6,7 @@ export const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <Link to={'/'}>
-        <h2>good habits</h2>
+        <h2>我が家の</h2>
       </Link>
       <IconWrapper icon={HamburgerIcon} />
     </header>

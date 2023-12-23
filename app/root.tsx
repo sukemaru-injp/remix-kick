@@ -1,4 +1,5 @@
 import React from 'react';
+import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { cssBundleHref } from '@remix-run/css-bundle';
 import type { LinksFunction } from '@remix-run/node';
@@ -6,6 +7,8 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@re
 import globalStyles from './styles/global.css';
 import { Header } from './components/Header';
 import { LoaderFunction } from '@remix-run/node';
+import { useSupabase, SupabaseConnect } from './libs/supabase';
+import { AuthContextProvider } from './provider/AuthContext';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
@@ -16,8 +19,17 @@ export const links: LinksFunction = () => [
     : []),
 ];
 
+type LoaderData = {
+  supabaseConnect: SupabaseConnect;
+}
+
 export const loader: LoaderFunction = async () => {
-  return { message: 'testing' };
+  const supabaseConnect: SupabaseConnect = {
+    supabaseUrl: process.env.SUPABASE_URL ?? '',
+    supabaseKey: process.env.SUPABASE_ANON_KEY ?? '',
+  }
+
+  return json({ supabaseConnect });
 };
 
 export default function App() {
@@ -37,16 +49,17 @@ export default function App() {
 }
 
 const Layout = () => {
-  const data = useLoaderData<{ message: string }>();
-  console.log(data);
+  const data = useLoaderData<LoaderData>();
+  const client = useSupabase(data.supabaseConnect)
 
   return (
     <>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-
+      <AuthContextProvider authClient={client.auth}>
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+      </AuthContextProvider>
       <ScrollRestoration />
       <Scripts />
       <LiveReload />
