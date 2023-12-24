@@ -6,7 +6,7 @@ export const meta: MetaFunction = () => {
   return [{ title: 'RemixKick' }, { name: 'description', content: 'Hello,Remix!' }];
 };
 
-export default function Index(): JSX.Element {
+export default function IndexPage(): JSX.Element {
   return (
     <>
       <RootPage />
