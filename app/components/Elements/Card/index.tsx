@@ -1,9 +1,9 @@
-import React from "react";
-import * as styles from './style.css'
+import React from 'react';
+import * as styles from './style.css';
 type Props = {
   children: React.ReactNode;
-  title?: React.ReactNode
-}
+  title?: React.ReactNode;
+};
 export function Card(props: Props): JSX.Element {
   return (
     <div className={styles.card}>
@@ -11,13 +11,12 @@ export function Card(props: Props): JSX.Element {
         <div className={styles.head}>
           {typeof props.title === 'string' ? (
             <h3 className={styles.title}>{props.title}</h3>
-          ) : props.title
-          }
+          ) : (
+            props.title
+          )}
         </div>
       )}
-      <div className={styles.content}>
-        {props.children}
-      </div>
+      <div className={styles.content}>{props.children}</div>
     </div>
-  )
+  );
 }

@@ -24,13 +24,13 @@ export const links: LinksFunction = () => [
 
 type LoaderData = {
   supabaseConnect: SupabaseConnect;
-}
+};
 
 export const loader: LoaderFunction = async () => {
   const supabaseConnect: SupabaseConnect = {
     supabaseUrl: process.env.SUPABASE_URL ?? '',
     supabaseKey: process.env.SUPABASE_ANON_KEY ?? '',
-  }
+  };
 
   return json({ supabaseConnect });
 };
@@ -53,7 +53,7 @@ export default function App() {
 
 const Layout = () => {
   const data = useLoaderData<LoaderData>();
-  const client = useSupabase(data.supabaseConnect)
+  const client = useSupabase(data.supabaseConnect);
 
   return (
     <>

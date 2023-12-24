@@ -7,17 +7,11 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Housework(): JSX.Element {
-  const auth = useAuthContext()
+  const auth = useAuthContext();
 
-  if(auth == null) {
-    return (
-      <></>
-    )
+  if (auth == null) {
+    return <></>;
   }
 
-  return (
-    <>
-      housework
-    </>
-  );
+  return <>housework</>;
 }

@@ -1,43 +1,39 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient';
 
 type AppAuth = {
-  id: string
-}
+  id: string;
+};
 
-const AuthContext = createContext<AppAuth | null>(null)
+const AuthContext = createContext<AppAuth | null>(null);
 
 type Props = {
-  authClient: SupabaseAuthClient
-  children: React.ReactNode
-}
+  authClient: SupabaseAuthClient;
+  children: React.ReactNode;
+};
 
 export function AuthContextProvider(props: Props): JSX.Element {
-  const [appAuth, setAppAuth] = useState<AppAuth | null>(null)
+  const [appAuth, setAppAuth] = useState<AppAuth | null>(null);
 
   useEffect(() => {
     const {
       data: { subscription },
     } = props.authClient.onAuthStateChange((event, session) => {
-      console.info('fireeeee', event, session)
-      if(session !== null) {
-        const { user } = session
+      console.info('fireeeee', event, session);
+      if (session !== null) {
+        const { user } = session;
         setAppAuth({
-          id: user.id
-        })
+          id: user.id,
+        });
       }
-    })
-  
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [props.authClient])
+    });
 
-  return (
-    <AuthContext.Provider value={appAuth}>
-      {props.children}
-    </AuthContext.Provider>
-  )
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [props.authClient]);
+
+  return <AuthContext.Provider value={appAuth}>{props.children}</AuthContext.Provider>;
 }
 
-export const useAuthContext = () => useContext(AuthContext)
+export const useAuthContext = () => useContext(AuthContext);

@@ -1,13 +1,13 @@
-import { toast, ToastContent } from "react-toastify";
+import { toast, ToastContent } from 'react-toastify';
 
 export const useToast = () => {
   function success<T = unknown>(content: ToastContent<T>) {
-    toast.success(content)
+    toast.success(content);
   }
 
   function warning<T = unknown>(content: ToastContent<T>) {
-    toast.warning(content)
+    toast.warning(content);
   }
 
-  return { success, warning }
-}
+  return { success, warning };
+};
