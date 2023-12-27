@@ -1,24 +1,39 @@
-import React, { ComponentType, useMemo } from 'react';
-import { match } from 'ts-pattern';
+import React, { ComponentType, useCallback } from 'react';
 import * as styles from './style.css';
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: ComponentType<any>;
-  color?: 'main' | 'white';
+  color?: 'primary' | 'white';
+  size?: 'small' | 'medium' | 'large';
+  onClick?: () => void;
 };
 
-export const IconWrapper: React.FC<Props> = ({ icon: Icon, color = 'white' }) => {
-  const iconStyle = useMemo(() => {
-    return match(color)
-      .with('main', () => styles.iconMain)
-      .with('white', () => styles.iconWhite)
-      .exhaustive();
-  }, [color]);
+export const IconWrapper: React.FC<Props> = ({
+  icon: Icon,
+  color = 'white',
+  size = 'medium',
+  onClick,
+}) => {
+  const handleClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
+    (e) => {
+      e.preventDefault();
+      onClick?.();
+    },
+    [onClick],
+  );
 
   return (
-    <span className={styles.wrapper}>
-      <Icon className={iconStyle} />
-    </span>
+    <>
+      {onClick ? (
+        <button onClick={handleClick} className={styles.button[size]}>
+          <Icon className={styles.iconColor[color]} />
+        </button>
+      ) : (
+        <span className={styles.wrapper[size]}>
+          <Icon className={styles.iconColor[color]} />
+        </span>
+      )}
+    </>
   );
 };

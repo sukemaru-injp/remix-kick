@@ -1,20 +1,49 @@
-import { style } from '@vanilla-extract/css';
-import { colors } from '../../common/style';
+import { style, styleVariants } from '@vanilla-extract/css';
+import { colors, spacing } from '../../common/style';
 
-export const wrapper = style({
-  maxWidth: '100%',
-  maxHeight: '100%',
+const sizes = {
+  small: '12px',
+  medium: '16px',
+  large: '24px',
+} as const;
+
+const wrapperBase = style({});
+
+export const wrapper = styleVariants({
+  small: [wrapperBase, { height: sizes.small, width: sizes.small }],
+  medium: [wrapperBase, { height: sizes.medium, width: sizes.medium }],
+  large: [wrapperBase, { height: sizes.large, width: sizes.large }],
+});
+
+const base = style({
+  width: '100%',
   height: '100%',
-  cursor: 'pointer',
+});
+
+export const iconColor = styleVariants({
+  primary: [base, { color: colors.main }],
+  white: [base, { color: colors.white }],
 });
 
 export const iconWhite = style({
   color: colors.white,
-  height: '100%',
   width: '100%',
+  height: '100%',
 });
 export const iconMain = style({
-  color: colors.main,
-  height: '100%',
   width: '100%',
+  height: '100%',
+});
+
+const baseButtonStyle = style({
+  border: 'none',
+  padding: spacing.medium,
+  cursor: 'pointer',
+  outline: 'none',
+});
+
+export const button = styleVariants({
+  small: [baseButtonStyle, { height: sizes.small, width: sizes.small }],
+  medium: [baseButtonStyle, { height: sizes.medium, width: sizes.medium }],
+  large: [baseButtonStyle, { height: sizes.large, width: sizes.large }],
 });
