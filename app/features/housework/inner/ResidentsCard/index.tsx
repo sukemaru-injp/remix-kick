@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import * as styles from './style.css';
-import { Card, LinkStyledButton, AddIcon } from '~/components/Elements';
+import { Card, LinkStyledButton, AddIcon, Button } from '~/components/Elements';
 import { Input } from '~/components/Form';
 
 export const ResidentsCard: React.FC = () => {
@@ -10,8 +10,12 @@ export const ResidentsCard: React.FC = () => {
     setAddMode(true);
   }, []);
 
+  const cancel = useCallback(() => {
+    setAddMode(false);
+  }, []);
+
   return (
-    <Card title='住人' footer={<Footer addMode={addMode} add={add} />}>
+    <Card title='住人' footer={<Footer addMode={addMode} add={add} cancel={cancel} />}>
       <>
         not impl <Input />
       </>
@@ -22,13 +26,23 @@ export const ResidentsCard: React.FC = () => {
 type FooterProps = {
   addMode: boolean;
   add: () => void;
+  cancel: () => void;
 };
-const Footer: React.FC<FooterProps> = ({ add }) => {
+const Footer: React.FC<FooterProps> = ({ addMode, add, cancel }) => {
   return (
     <div className={styles.footer}>
-      <LinkStyledButton icon={AddIcon} onClick={add}>
-        住人を追加
-      </LinkStyledButton>
+      {addMode ? (
+        <>
+          <Button color='secondary' onClick={cancel}>
+            キャンセル
+          </Button>
+          <Button color='primary'>保存</Button>
+        </>
+      ) : (
+        <LinkStyledButton icon={AddIcon} onClick={add}>
+          住人を追加
+        </LinkStyledButton>
+      )}
     </div>
   );
 };

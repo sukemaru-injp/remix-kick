@@ -11,7 +11,8 @@
     "typecheck": "tsc",
     "format": "prettier --check --ignore-path .gitignore './app/**/*.{js,jsx,ts,tsx}'",
     "format:fix": "prettier --write --ignore-path .gitignore './app/**'",
-    "lint:fix": "eslint --fix ./app"
+    "lint:fix": "eslint --fix ./app",
+    "supabase:typegen": "source .env && supabase gen types typescript --project-id $PROJECT_ID > ./modules/database.types.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",

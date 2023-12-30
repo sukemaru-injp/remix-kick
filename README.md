@@ -9,6 +9,12 @@ pnpm install
 pnpm dev
 ```
 
+create supabase schema
+
+```sh
+pnpm supabase:typegen
+```
+
 ## Deployment
 
 ```sh
