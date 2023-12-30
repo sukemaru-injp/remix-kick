@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
       <Link to={'/'}>
         <h2>我が家の</h2>
       </Link>
-      <IconWrapper icon={HamburgerIcon} />
+      <IconWrapper icon={HamburgerIcon} size='large' />
     </header>
   );
 };

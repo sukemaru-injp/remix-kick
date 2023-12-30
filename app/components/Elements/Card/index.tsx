@@ -3,6 +3,7 @@ import * as styles from './style.css';
 type Props = {
   children: React.ReactNode;
   title?: React.ReactNode;
+  footer?: React.ReactNode;
 };
 export function Card(props: Props): JSX.Element {
   return (
@@ -17,6 +18,7 @@ export function Card(props: Props): JSX.Element {
         </div>
       )}
       <div className={styles.content}>{props.children}</div>
+      {props.footer && <div className={styles.foot}>{props.footer}</div>}
     </div>
   );
 }

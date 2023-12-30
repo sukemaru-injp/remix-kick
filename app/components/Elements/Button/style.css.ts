@@ -1,8 +1,8 @@
 import { style } from '@vanilla-extract/css';
-import { colors, spacing } from '~/components/common/style';
+import { colors, spacing, radius } from '~/components/common/style';
 
 const buttonbase = style({
-  borderRadius: '8px',
+  borderRadius: radius,
   padding: `${spacing.medium} ${spacing.large}`,
   cursor: 'pointer',
   fontSize: '1.1rem',

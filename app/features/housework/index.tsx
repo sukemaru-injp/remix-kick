@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import * as styles from './style.css';
+import { ResidentsCard } from './inner/ResidentsCard';
 import { addMonths, subMonths, format } from 'date-fns';
 import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon } from '~/components/Elements';
 
@@ -7,6 +8,7 @@ import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon } from '~/components/E
 
 export const Housework: React.FC = () => {
   const [targetDate, setTargetDate] = useState(new Date());
+
   const next = useCallback(() => {
     setTargetDate(addMonths(targetDate, 1));
   }, [targetDate]);
@@ -19,6 +21,8 @@ export const Housework: React.FC = () => {
       <Card title={<CardHead date={targetDate} onClickNext={next} onClickPrev={prev} />}>
         cardInner
       </Card>
+
+      <ResidentsCard />
     </div>
   );
 };
@@ -31,9 +35,9 @@ type CardHeadProps = {
 const CardHead: React.FC<CardHeadProps> = (props) => {
   return (
     <div className={styles.header}>
-      <IconWrapper icon={LeftArrowIcon} color='primary' onClick={props.onClickPrev} />
-      <h3 className={styles.dateText}>{format(props.date, 'yyyy年MM月')}</h3>
-      <IconWrapper icon={RightArrowIcon} color='primary' onClick={props.onClickNext} />
+      <IconWrapper icon={LeftArrowIcon} color='primary' onClick={props.onClickPrev} size='large' />
+      <h3 className={styles.dateText}>{format(props.date, 'yyyy年M月')}</h3>
+      <IconWrapper icon={RightArrowIcon} color='primary' size='large' onClick={props.onClickNext} />
     </div>
   );
 };

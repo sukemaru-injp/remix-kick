@@ -2,12 +2,14 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { colors, spacing } from '../../common/style';
 
 const sizes = {
-  small: '12px',
-  medium: '16px',
-  large: '24px',
+  small: '24px',
+  medium: '28px',
+  large: '32px',
 } as const;
 
-const wrapperBase = style({});
+const wrapperBase = style({
+  padding: spacing.small,
+});
 
 export const wrapper = styleVariants({
   small: [wrapperBase, { height: sizes.small, width: sizes.small }],
@@ -36,10 +38,16 @@ export const iconMain = style({
 });
 
 const baseButtonStyle = style({
+  padding: spacing.small,
   border: 'none',
-  padding: spacing.medium,
   cursor: 'pointer',
-  outline: 'none',
+  backgroundColor: 'transparent',
+});
+
+export const buttonInner = style({
+  display: 'inline-flex',
+  alignSelf: 'center',
+  position: 'relative',
 });
 
 export const button = styleVariants({

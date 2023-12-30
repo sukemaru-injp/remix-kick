@@ -19,3 +19,7 @@ export const header = style({
 export const dateText = style({
   fontWeight: 'bold',
 });
+
+export const iconArea = style({
+  padding: spacing.small,
+});

@@ -1,9 +1,9 @@
 import { style } from '@vanilla-extract/css';
-import { spacing } from '~/components/common/style';
+import { spacing, borderDefault } from '~/components/common/style';
 
 export const card = style({
   borderRadius: '8px',
-  border: `1px solid #ccc`,
+  border: borderDefault,
   display: 'inline-block',
   minWidth: '320px',
 });
@@ -14,9 +14,14 @@ export const content = style({
 
 export const head = style({
   padding: spacing.medium,
-  borderBottom: `1px solid #ccc`,
+  borderBottom: borderDefault,
 });
 export const title = style({
   fontSize: '1.2rem',
   fontWeight: 'bold',
+});
+
+export const foot = style({
+  padding: spacing.medium,
+  borderTop: borderDefault,
 });
