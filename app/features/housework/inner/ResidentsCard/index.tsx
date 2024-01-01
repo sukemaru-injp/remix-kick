@@ -16,9 +16,14 @@ export const ResidentsCard: React.FC = () => {
 
   return (
     <Card title='住人' footer={<Footer addMode={addMode} add={add} cancel={cancel} />}>
-      <>
-        not impl <Input />
-      </>
+      <div className={styles.innerWrapper}>
+        not impl
+        {addMode && (
+          <div className={styles.inputSection}>
+            <Input />
+          </div>
+        )}
+      </div>
     </Card>
   );
 };

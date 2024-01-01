@@ -3,10 +3,13 @@ import * as styles from './style.css';
 import { ResidentsCard } from './inner/ResidentsCard';
 import { addMonths, subMonths, format } from 'date-fns';
 import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon } from '~/components/Elements';
+import { useGetResidentsRepository } from './repository/getResidentsRepository';
 
-// type Props = {}
+type Props = {
+  uid: string;
+};
 
-export const Housework: React.FC = () => {
+export const Housework: React.FC<Props> = ({ uid }) => {
   const [targetDate, setTargetDate] = useState(new Date());
 
   const next = useCallback(() => {
@@ -15,6 +18,13 @@ export const Housework: React.FC = () => {
   const prev = useCallback(() => {
     setTargetDate(subMonths(targetDate, 1));
   }, [targetDate]);
+
+  const { getResidents } = useGetResidentsRepository(uid);
+
+  (async () => {
+    const result = await getResidents();
+    console.log('fireeeee:res', result);
+  })();
 
   return (
     <div className={styles.wrapper}>

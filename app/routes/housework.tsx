@@ -1,6 +1,6 @@
 import React from 'react';
 import type { MetaFunction } from '@remix-run/node';
-// import { useAuthContext } from '~/provider/AuthContext';
+import { useAuthContext } from '~/provider/AuthContext';
 import { Housework } from '~/features/housework';
 
 export const meta: MetaFunction = () => {
@@ -8,15 +8,15 @@ export const meta: MetaFunction = () => {
 };
 
 export default function HouseworkPage(): JSX.Element {
-  // const auth = useAuthContext();
+  const auth = useAuthContext();
 
-  // if (auth == null) {
-  //   return <></>;
-  // }
+  if (auth.status === 'signedOut') {
+    return <>ログインしてください</>;
+  }
 
   return (
     <>
-      <Housework />
+      <Housework uid={auth.id} />
     </>
   );
 }
