@@ -1,15 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo, Suspense } from 'react';
 import * as styles from './style.css';
 import { ResidentsCard } from './inner/ResidentsCard';
 import { addMonths, subMonths, format } from 'date-fns';
 import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon } from '~/components/Elements';
 import { useGetResidentsRepository } from './repository/getResidentsRepository';
+import { useSustainedResourceContext, Resource } from '~/utils/suspense';
 
 type Props = {
   uid: string;
 };
 
 export const Housework: React.FC<Props> = ({ uid }) => {
+  const sustained = useSustainedResourceContext();
+
   const [targetDate, setTargetDate] = useState(new Date());
 
   const next = useCallback(() => {
@@ -21,18 +24,31 @@ export const Housework: React.FC<Props> = ({ uid }) => {
 
   const { getResidents } = useGetResidentsRepository(uid);
 
-  (async () => {
-    const result = await getResidents();
-    console.log('fireeeee:res', result);
-  })();
+  const getResidentsResource = useMemo(
+    () =>
+      sustained.get(`getResidents`, () => {
+        return Resource.set(async () => {
+          const result = await getResidents();
+          return result.match(
+            (v) => v,
+            (err) => {
+              console.error('error', err);
+              return [];
+            },
+          );
+        });
+      }),
+    [getResidents, sustained],
+  );
 
   return (
     <div className={styles.wrapper}>
       <Card title={<CardHead date={targetDate} onClickNext={next} onClickPrev={prev} />}>
         cardInner
       </Card>
-
-      <ResidentsCard />
+      <Suspense fallback={<>Loading...</>}>
+        <ResidentsCard residentsResource={getResidentsResource} />
+      </Suspense>
     </div>
   );
 };

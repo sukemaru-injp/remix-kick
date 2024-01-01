@@ -14,7 +14,7 @@ export const useGetResidentsRepository = (uid: string): GetResidentsRepository =
     try {
       const { data, error } = await supabaseClient.from('residents').select().gte('uid', uid);
       if (error !== null) {
-        return err({});
+        return err({ kind: 'unknownError', error });
       }
 
       const res =

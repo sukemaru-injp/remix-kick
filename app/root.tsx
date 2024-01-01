@@ -10,6 +10,7 @@ import { LoaderFunction } from '@remix-run/node';
 import { useSupabase, SupabaseConnect } from './libs/supabase';
 import { AuthContextProvider } from './provider/AuthContext';
 import { AppContextProvider } from './provider/AppContext';
+import { SustainedResourceProvider } from './utils/suspense';
 // react-toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -60,11 +61,13 @@ const Layout = () => {
     <>
       <AppContextProvider supabaseClient={client}>
         <AuthContextProvider authClient={client.auth}>
-          <Header />
-          <main>
-            <Outlet />
-            <ToastContainer />
-          </main>
+          <SustainedResourceProvider>
+            <Header />
+            <main>
+              <Outlet />
+              <ToastContainer />
+            </main>
+          </SustainedResourceProvider>
         </AuthContextProvider>
       </AppContextProvider>
       <ScrollRestoration />

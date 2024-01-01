@@ -2,8 +2,14 @@ import React, { useCallback, useState } from 'react';
 import * as styles from './style.css';
 import { Card, LinkStyledButton, AddIcon, Button } from '~/components/Elements';
 import { Input } from '~/components/Form';
+import { Resident } from '../../model/Resident';
+import { CachedResource } from '~/utils/suspense';
 
-export const ResidentsCard: React.FC = () => {
+type Props = {
+  residentsResource: CachedResource<readonly Resident[]>;
+};
+export const ResidentsCard: React.FC<Props> = ({ residentsResource }) => {
+  const residents = residentsResource.read();
   const [addMode, setAddMode] = useState(false);
 
   const add = useCallback(() => {
@@ -13,6 +19,8 @@ export const ResidentsCard: React.FC = () => {
   const cancel = useCallback(() => {
     setAddMode(false);
   }, []);
+
+  console.log('fireeeee', residents);
 
   return (
     <Card title='住人' footer={<Footer addMode={addMode} add={add} cancel={cancel} />}>
