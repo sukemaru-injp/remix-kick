@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient';
 
-type AppAuth = {
-  id: string;
-};
+type AppAuth =
+  | { status: 'signedOut' }
+  | {
+      status: 'signedIn';
+      id: string;
+    };
 
-const AuthContext = createContext<AppAuth | null>(null);
+const AuthContext = createContext<AppAuth>({ status: 'signedOut' });
 
 type Props = {
   authClient: SupabaseAuthClient;
@@ -13,7 +16,7 @@ type Props = {
 };
 
 export function AuthContextProvider(props: Props): JSX.Element {
-  const [appAuth, setAppAuth] = useState<AppAuth | null>(null);
+  const [appAuth, setAppAuth] = useState<AppAuth>({ status: 'signedOut' });
 
   useEffect(() => {
     const {
@@ -22,10 +25,13 @@ export function AuthContextProvider(props: Props): JSX.Element {
       console.info('fireeeee', event, session);
       if (session !== null) {
         const { user } = session;
-        setAppAuth({
+        return setAppAuth({
+          status: 'signedIn',
           id: user.id,
         });
       }
+
+      setAppAuth({ status: 'signedOut' });
     });
 
     return () => {

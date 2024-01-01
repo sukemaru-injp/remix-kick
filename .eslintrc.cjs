@@ -20,12 +20,13 @@ module.exports = {
     es6: true,
   },
 
-  "extends": [
+  extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "prettier"
   ],
+  plugins: ['neverthrow'],
 
   // comment out remix defaults
   // extends: [

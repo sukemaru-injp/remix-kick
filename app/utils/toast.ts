@@ -9,5 +9,9 @@ export const useToast = () => {
     toast.warning(content);
   }
 
-  return { success, warning };
+  function error<T = unknown>(content: ToastContent<T>) {
+    toast.error(content);
+  }
+
+  return { success, warning, error };
 };

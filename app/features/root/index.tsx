@@ -2,8 +2,11 @@ import React from 'react';
 import * as styles from './style.css';
 import { Link } from '~/components/Elements';
 import { LoginCard } from './inner/LoginCard';
+import { SignOutSection } from './inner/SignOutSection';
+import { useAuthContext } from '~/provider/AuthContext';
 
 export const RootPage: React.FC = () => {
+  const auth = useAuthContext();
   return (
     <div className={styles.root}>
       <div>
@@ -11,7 +14,16 @@ export const RootPage: React.FC = () => {
           to housework
         </Link>
       </div>
-      <LoginCard />
+
+      <div>
+        <LoginCard />
+      </div>
+
+      {auth.status === 'signedIn' && (
+        <div>
+          <SignOutSection />
+        </div>
+      )}
     </div>
   );
 };

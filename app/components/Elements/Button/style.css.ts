@@ -6,6 +6,11 @@ const buttonbase = style({
   padding: `${spacing.medium} ${spacing.large}`,
   cursor: 'pointer',
   fontSize: '1.1rem',
+
+  ':disabled': {
+    backgroundColor: '#c0c0c0',
+    color: colors.white,
+  },
 });
 
 export const primary = style([
