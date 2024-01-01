@@ -1,10 +1,9 @@
 import React from 'react';
 import * as styles from './style.css';
-import { Button, Card, Link } from '~/components/Elements';
-import { useToast } from '~/utils/toast';
+import { Link } from '~/components/Elements';
+import { LoginCard } from './inner/LoginCard';
 
 export const RootPage: React.FC = () => {
-  const { warning } = useToast();
   return (
     <div className={styles.root}>
       <div>
@@ -12,9 +11,7 @@ export const RootPage: React.FC = () => {
           to housework
         </Link>
       </div>
-      <Card title='ログイン / 新規登録'>
-        <Button onClick={() => warning('login')}>Googleアカウントログイン</Button>
-      </Card>
+      <LoginCard />
     </div>
   );
 };
