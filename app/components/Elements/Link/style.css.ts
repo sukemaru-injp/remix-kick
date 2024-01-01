@@ -1,7 +1,13 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { colors } from '../../common/style';
 
-export const link = style({
+const base = style({
+  width: '100%',
+  height: '100%',
   textDecoration: 'none',
-  color: colors.white,
+});
+
+export const linkStyle = styleVariants({
+  link: [base, { color: colors.link }],
+  white: [base, { color: colors.white }],
 });

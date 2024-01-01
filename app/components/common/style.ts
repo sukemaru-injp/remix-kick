@@ -2,6 +2,7 @@ export const colors = {
   main: '#89c997',
   white: '#fffafa',
   border: '#ccc',
+  link: '#3366ff',
 } as const;
 
 export const spacing = {

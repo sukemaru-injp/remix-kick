@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { spacing } from '~/components/common/style';
+import { spacing, colors } from '~/components/common/style';
 
 export const button = style({
   display: 'inline-flex',
@@ -7,7 +7,7 @@ export const button = style({
   justifyContent: 'center',
   gap: spacing.small,
   border: 'none',
-  color: '#3366ff',
+  color: colors.link,
   padding: spacing.small,
   cursor: 'pointer',
   backgroundColor: 'transparent',

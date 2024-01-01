@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
+import { spacing } from '~/components/common/style';
 
 export const root = style({
-  border: 'solid 1px',
-  background: '#ccc',
-  color: '#454545',
+  padding: spacing.medium,
 });
