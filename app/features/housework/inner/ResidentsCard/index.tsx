@@ -1,15 +1,64 @@
 import React, { useCallback, useState } from 'react';
 import * as styles from './style.css';
-import { Card, LinkStyledButton, AddIcon, Button } from '~/components/Elements';
+import { Card, LinkStyledButton, AddIcon, Button, Text } from '~/components/Elements';
 import { Input } from '~/components/Form';
 import { Resident } from '../../model/Resident';
 import { CachedResource } from '~/utils/suspense';
+import { useCreateResidentRepository } from '../../repository/createResidentRepository';
+import { useToast } from '~/utils/toast';
 
 type Props = {
+  uid: string;
   residentsResource: CachedResource<readonly Resident[]>;
 };
-export const ResidentsCard: React.FC<Props> = ({ residentsResource }) => {
+export const ResidentsCard: React.FC<Props> = ({ uid, residentsResource }) => {
   const residents = residentsResource.read();
+
+  return (
+    <Card title='住人' footer={<Footer uid={uid} />}>
+      <div className={styles.innerWrapper}>
+        <MainSection residents={residents} />
+      </div>
+    </Card>
+  );
+};
+
+type MainSectionProps = {
+  residents: readonly Resident[];
+};
+const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
+  return (
+    <div className={styles.mainSection}>
+      {residents.length === 0 ? (
+        <Text>住人は登録されていません</Text>
+      ) : (
+        <>
+          {residents.map((r) => {
+            return <Row key={r.id} resident={r} />;
+          })}
+        </>
+      )}
+    </div>
+  );
+};
+
+function Row({ resident }: { resident: Resident }): JSX.Element {
+  return <div>{resident.name}</div>;
+}
+
+type FooterProps = {
+  uid: string;
+};
+const Footer: React.FC<FooterProps> = ({ uid }) => {
+  const { createResident } = useCreateResidentRepository(uid);
+  const toast = useToast();
+  const [val, updateVal] = useState<string>('');
+
+  const changeName = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
+    const name = e.target.value;
+    updateVal(name);
+  }, []);
+
   const [addMode, setAddMode] = useState(false);
 
   const add = useCallback(() => {
@@ -18,39 +67,69 @@ export const ResidentsCard: React.FC<Props> = ({ residentsResource }) => {
 
   const cancel = useCallback(() => {
     setAddMode(false);
+    updateVal('');
   }, []);
 
-  console.log('fireeeee', residents);
+  const [error, setError] = useState<string | null>(null);
 
-  return (
-    <Card title='住人' footer={<Footer addMode={addMode} add={add} cancel={cancel} />}>
-      <div className={styles.innerWrapper}>
-        not impl
-        {addMode && (
-          <div className={styles.inputSection}>
-            <Input />
-          </div>
-        )}
-      </div>
-    </Card>
+  const validate = useCallback((): { ok: boolean } => {
+    if (val.length > 50) {
+      setError('50文字以下にしてください');
+      return { ok: false };
+    }
+    if (val === '') {
+      setError('必須項目です');
+      return { ok: false };
+    }
+    setError(null);
+    return { ok: true };
+  }, [val]);
+
+  const [loading, setLoading] = useState(false);
+  const submit = useCallback<React.FormEventHandler<HTMLFormElement>>(
+    async (e) => {
+      e.preventDefault();
+
+      const { ok } = validate();
+      if (!ok) {
+        return;
+      }
+      setLoading(true);
+
+      const res = await createResident({ name: val });
+
+      res.match(
+        () => {
+          toast.success('住人が増えました');
+        },
+        (e) => {
+          console.error('create:error', e);
+          toast.error('追加に失敗しました');
+        },
+      );
+      setLoading(false);
+    },
+    [createResident, val, validate, toast],
   );
-};
 
-type FooterProps = {
-  addMode: boolean;
-  add: () => void;
-  cancel: () => void;
-};
-const Footer: React.FC<FooterProps> = ({ addMode, add, cancel }) => {
   return (
     <div className={styles.footer}>
       {addMode ? (
-        <>
-          <Button color='secondary' onClick={cancel}>
-            キャンセル
-          </Button>
-          <Button color='primary'>保存</Button>
-        </>
+        <form className={styles.formSection} onSubmit={submit}>
+          <div className={styles.inputSection}>
+            <span>名前</span>
+            <Input value={val} onChange={changeName} />
+            {error && <span className={styles.errorLabel}>{error}</span>}
+          </div>
+          <div className={styles.buttonSection}>
+            <Button color='secondary' onClick={cancel} disabled={loading} type='button'>
+              キャンセル
+            </Button>
+            <Button color='primary' type='submit' disabled={loading}>
+              保存
+            </Button>
+          </div>
+        </form>
       ) : (
         <LinkStyledButton icon={AddIcon} onClick={add}>
           住人を追加

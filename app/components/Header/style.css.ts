@@ -8,5 +8,5 @@ export const header = style({
   height: '50px',
   backgroundColor: colors.main,
   color: colors.white,
-  padding: spacing.medium,
+  padding: spacing.m,
 });

@@ -1,14 +1,17 @@
 export const colors = {
   main: '#89c997',
   white: '#fffafa',
+  text: '#00001f',
   border: '#ccc',
   link: '#3366ff',
+  error: '#ed1c24',
 } as const;
 
 export const spacing = {
-  small: '4px',
-  medium: '10px',
-  large: '20px',
+  s: '4px',
+  m: '10px',
+  ml: '15px',
+  l: '20px',
 } as const;
 
 export const radius = '8px';

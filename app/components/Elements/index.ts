@@ -11,3 +11,5 @@ export { IconWrapper } from './IconWrapper';
 export { Card } from './Card';
 export { Button } from './Button';
 export { LinkStyledButton } from './LinkStyledButton';
+export { Loader } from './Loader';
+export { Text } from './Text';

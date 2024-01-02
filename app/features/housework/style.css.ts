@@ -6,14 +6,14 @@ export const wrapper = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: spacing.medium,
+  gap: spacing.m,
 });
 
 export const header = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: spacing.small,
+  gap: spacing.s,
 });
 
 export const dateText = style({
@@ -21,5 +21,5 @@ export const dateText = style({
 });
 
 export const iconArea = style({
-  padding: spacing.small,
+  padding: spacing.s,
 });

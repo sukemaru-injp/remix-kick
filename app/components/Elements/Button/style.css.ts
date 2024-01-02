@@ -3,7 +3,7 @@ import { colors, spacing, radius } from '~/components/common/style';
 
 const buttonbase = style({
   borderRadius: radius,
-  padding: `${spacing.medium} ${spacing.large}`,
+  padding: `${spacing.m} ${spacing.l}`,
   cursor: 'pointer',
   fontSize: '1.1rem',
 

@@ -9,11 +9,11 @@ export const card = style({
 });
 
 export const content = style({
-  padding: spacing.medium,
+  padding: spacing.m,
 });
 
 export const head = style({
-  padding: spacing.medium,
+  padding: spacing.m,
   borderBottom: borderDefault,
 });
 export const title = style({
@@ -22,6 +22,6 @@ export const title = style({
 });
 
 export const foot = style({
-  padding: spacing.medium,
+  padding: spacing.m,
   borderTop: borderDefault,
 });

@@ -2,9 +2,10 @@ import React, { useCallback, useState, useMemo, Suspense } from 'react';
 import * as styles from './style.css';
 import { ResidentsCard } from './inner/ResidentsCard';
 import { addMonths, subMonths, format } from 'date-fns';
-import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon } from '~/components/Elements';
+import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon, Loader } from '~/components/Elements';
 import { useGetResidentsRepository } from './repository/getResidentsRepository';
 import { useSustainedResourceContext, Resource } from '~/utils/suspense';
+import { useToast } from '~/utils/toast';
 
 type Props = {
   uid: string;
@@ -12,6 +13,8 @@ type Props = {
 
 export const Housework: React.FC<Props> = ({ uid }) => {
   const sustained = useSustainedResourceContext();
+
+  const toast = useToast();
 
   const [targetDate, setTargetDate] = useState(new Date());
 
@@ -33,12 +36,13 @@ export const Housework: React.FC<Props> = ({ uid }) => {
             (v) => v,
             (err) => {
               console.error('error', err);
+              toast.error('取得に失敗しました');
               return [];
             },
           );
         });
       }),
-    [getResidents, sustained],
+    [getResidents, sustained, toast],
   );
 
   return (
@@ -46,8 +50,8 @@ export const Housework: React.FC<Props> = ({ uid }) => {
       <Card title={<CardHead date={targetDate} onClickNext={next} onClickPrev={prev} />}>
         cardInner
       </Card>
-      <Suspense fallback={<>Loading...</>}>
-        <ResidentsCard residentsResource={getResidentsResource} />
+      <Suspense fallback={<Loader />}>
+        <ResidentsCard residentsResource={getResidentsResource} uid={uid} />
       </Suspense>
     </div>
   );

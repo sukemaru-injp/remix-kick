@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { spacing } from '~/components/common/style';
+import { colors, spacing } from '~/components/common/style';
 
 export const footer = style({
   display: 'flex',
@@ -9,7 +9,34 @@ export const footer = style({
 export const innerWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: spacing.small,
+  gap: spacing.s,
 });
 
-export const inputSection = style({});
+export const mainSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  gap: spacing.s,
+});
+
+export const formSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: spacing.ml,
+  width: '100%',
+});
+export const inputSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  color: colors.text,
+});
+
+export const buttonSection = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: spacing.s,
+});
+
+export const errorLabel = style({
+  color: colors.error,
+});

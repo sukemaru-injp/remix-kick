@@ -5,10 +5,10 @@ export const button = style({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: spacing.small,
+  gap: spacing.s,
   border: 'none',
   color: colors.link,
-  padding: spacing.small,
+  padding: spacing.s,
   cursor: 'pointer',
   backgroundColor: 'transparent',
 });

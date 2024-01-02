@@ -8,7 +8,7 @@ const sizes = {
 } as const;
 
 const wrapperBase = style({
-  padding: spacing.small,
+  padding: spacing.s,
 });
 
 export const wrapper = styleVariants({
@@ -38,7 +38,7 @@ export const iconMain = style({
 });
 
 const baseButtonStyle = style({
-  padding: spacing.small,
+  padding: spacing.s,
   border: 'none',
   cursor: 'pointer',
   backgroundColor: 'transparent',
