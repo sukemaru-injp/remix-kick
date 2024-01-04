@@ -11,6 +11,7 @@ import { useSupabase, SupabaseConnect } from './libs/supabase';
 import { AuthContextProvider } from './provider/AuthContext';
 import { AppContextProvider } from './provider/AppContext';
 import { SustainedResourceProvider } from './utils/suspense';
+import { RequiredLoginErrorBoundary } from './utils/RequiredLogin';
 // react-toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -63,10 +64,12 @@ const Layout = () => {
         <AuthContextProvider authClient={client.auth}>
           <SustainedResourceProvider>
             <Header />
-            <main>
-              <Outlet />
-              <ToastContainer />
-            </main>
+            <RequiredLoginErrorBoundary>
+              <main>
+                <Outlet />
+                <ToastContainer />
+              </main>
+            </RequiredLoginErrorBoundary>
           </SustainedResourceProvider>
         </AuthContextProvider>
       </AppContextProvider>
