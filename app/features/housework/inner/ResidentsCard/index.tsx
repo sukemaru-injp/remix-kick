@@ -101,6 +101,7 @@ const Footer: React.FC<FooterProps> = ({ uid }) => {
       res.match(
         () => {
           toast.success('住人が増えました');
+          cancel();
         },
         (e) => {
           console.error('create:error', e);
@@ -109,7 +110,7 @@ const Footer: React.FC<FooterProps> = ({ uid }) => {
       );
       setLoading(false);
     },
-    [createResident, val, validate, toast],
+    [createResident, val, validate, toast, cancel],
   );
 
   return (

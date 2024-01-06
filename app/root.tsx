@@ -6,6 +6,7 @@ import type { LinksFunction } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import globalStyles from './styles/global.css';
 import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 import { LoaderFunction } from '@remix-run/node';
 import { useSupabase, SupabaseConnect } from './libs/supabase';
 import { AuthContextProvider } from './provider/AuthContext';
@@ -15,6 +16,7 @@ import { RequiredLoginErrorBoundary } from './utils/RequiredLogin';
 // react-toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { colors } from './components/common/style';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
@@ -65,11 +67,12 @@ const Layout = () => {
           <SustainedResourceProvider>
             <Header />
             <RequiredLoginErrorBoundary>
-              <main>
+              <main style={{ minHeight: '100vh', backgroundColor: colors.white }}>
                 <Outlet />
                 <ToastContainer />
               </main>
             </RequiredLoginErrorBoundary>
+            <Footer />
           </SustainedResourceProvider>
         </AuthContextProvider>
       </AppContextProvider>

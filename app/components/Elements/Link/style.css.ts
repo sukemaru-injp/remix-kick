@@ -10,4 +10,5 @@ const base = style({
 export const linkStyle = styleVariants({
   link: [base, { color: colors.link }],
   white: [base, { color: colors.white }],
+  sub: [base, { color: colors.border }],
 });
