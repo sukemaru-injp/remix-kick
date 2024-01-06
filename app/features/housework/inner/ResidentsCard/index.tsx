@@ -1,6 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import * as styles from './style.css';
-import { Card, LinkStyledButton, AddIcon, Button, Text } from '~/components/Elements';
+import {
+  Card,
+  LinkStyledButton,
+  AddIcon,
+  Button,
+  Text,
+  DeleteIcon,
+  IconWrapper,
+} from '~/components/Elements';
 import { Input } from '~/components/Form';
 import { Resident } from '../../model/Resident';
 import { CachedResource } from '~/utils/suspense';
@@ -10,12 +18,13 @@ import { useToast } from '~/utils/toast';
 type Props = {
   uid: string;
   residentsResource: CachedResource<readonly Resident[]>;
+  forceUpdate: () => void;
 };
-export const ResidentsCard: React.FC<Props> = ({ uid, residentsResource }) => {
+export const ResidentsCard: React.FC<Props> = ({ uid, residentsResource, forceUpdate }) => {
   const residents = residentsResource.read();
 
   return (
-    <Card title='住人' footer={<Footer uid={uid} />}>
+    <Card title='住人' footer={<Footer uid={uid} forceUpdate={forceUpdate} />}>
       <div className={styles.innerWrapper}>
         <MainSection residents={residents} />
       </div>
@@ -43,13 +52,21 @@ const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
 };
 
 function Row({ resident }: { resident: Resident }): JSX.Element {
-  return <div>{resident.name}</div>;
+  return (
+    <div className={styles.row}>
+      <Text>{resident.name}</Text>
+      <div className={styles.icons}>
+        <IconWrapper icon={DeleteIcon} color='red' />
+      </div>
+    </div>
+  );
 }
 
 type FooterProps = {
   uid: string;
+  forceUpdate: () => void;
 };
-const Footer: React.FC<FooterProps> = ({ uid }) => {
+const Footer: React.FC<FooterProps> = ({ uid, forceUpdate }) => {
   const { createResident } = useCreateResidentRepository(uid);
   const toast = useToast();
   const [val, updateVal] = useState<string>('');
@@ -102,6 +119,7 @@ const Footer: React.FC<FooterProps> = ({ uid }) => {
         () => {
           toast.success('住人が増えました');
           cancel();
+          forceUpdate();
         },
         (e) => {
           console.error('create:error', e);
@@ -110,7 +128,7 @@ const Footer: React.FC<FooterProps> = ({ uid }) => {
       );
       setLoading(false);
     },
-    [createResident, val, validate, toast, cancel],
+    [createResident, val, validate, toast, cancel, forceUpdate],
   );
 
   return (

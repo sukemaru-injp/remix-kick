@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, Suspense } from 'react';
+import React, { useCallback, useState, useMemo, Suspense, useReducer } from 'react';
 import * as styles from './style.css';
 import { ResidentsCard } from './inner/ResidentsCard';
 import { addMonths, subMonths, format } from 'date-fns';
@@ -27,9 +27,10 @@ export const Housework: React.FC<Props> = ({ uid }) => {
 
   const { getResidents } = useGetResidentsRepository(uid);
 
+  const [renderCount, forceUpdate] = useReducer((n) => n + 1, 0);
   const getResidentsResource = useMemo(
     () =>
-      sustained.get(`getResidents`, () => {
+      sustained.get(`getResidents${renderCount}`, () => {
         return Resource.set(async () => {
           const result = await getResidents();
           return result.match(
@@ -42,7 +43,7 @@ export const Housework: React.FC<Props> = ({ uid }) => {
           );
         });
       }),
-    [getResidents, sustained, toast],
+    [getResidents, sustained, toast, renderCount],
   );
 
   return (
@@ -51,7 +52,11 @@ export const Housework: React.FC<Props> = ({ uid }) => {
         cardInner
       </Card>
       <Suspense fallback={<Loader />}>
-        <ResidentsCard residentsResource={getResidentsResource} uid={uid} />
+        <ResidentsCard
+          residentsResource={getResidentsResource}
+          uid={uid}
+          forceUpdate={forceUpdate}
+        />
       </Suspense>
     </div>
   );

@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { colors, spacing } from '~/components/common/style';
+import { borderDefault, colors, spacing } from '~/components/common/style';
 
 export const footer = style({
   display: 'flex',
@@ -16,7 +16,6 @@ export const mainSection = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  gap: spacing.s,
 });
 
 export const formSection = style({
@@ -39,4 +38,22 @@ export const buttonSection = style({
 
 export const errorLabel = style({
   color: colors.error,
+});
+
+export const row = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  borderBottom: borderDefault,
+  padding: `${spacing.m} 0`,
+
+  ':last-child': {
+    borderBottom: 'none',
+  },
+});
+
+export const icons = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: spacing.s,
 });

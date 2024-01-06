@@ -25,6 +25,7 @@ const base = style({
 export const iconColor = styleVariants({
   primary: [base, { color: colors.main }],
   white: [base, { color: colors.white }],
+  red: [base, { color: colors.error }],
 });
 
 export const iconWhite = style({

@@ -4,7 +4,7 @@ import * as styles from './style.css';
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: ComponentType<any>;
-  color?: 'primary' | 'white';
+  color?: 'primary' | 'white' | 'red';
   size?: 'small' | 'medium' | 'large';
   onClick?: () => void;
 };

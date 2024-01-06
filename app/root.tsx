@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { cssBundleHref } from '@remix-run/css-bundle';
@@ -62,20 +62,22 @@ const Layout = () => {
 
   return (
     <>
-      <AppContextProvider supabaseClient={client}>
-        <AuthContextProvider authClient={client.auth}>
-          <SustainedResourceProvider>
-            <Header />
-            <RequiredLoginErrorBoundary>
-              <main style={{ minHeight: '100vh', backgroundColor: colors.white }}>
-                <Outlet />
-                <ToastContainer />
-              </main>
-            </RequiredLoginErrorBoundary>
-            <Footer />
-          </SustainedResourceProvider>
-        </AuthContextProvider>
-      </AppContextProvider>
+      <Suspense fallback={<>Loading...</>}>
+        <AppContextProvider supabaseClient={client}>
+          <AuthContextProvider authClient={client.auth}>
+            <SustainedResourceProvider>
+              <Header />
+              <RequiredLoginErrorBoundary>
+                <main style={{ minHeight: '100vh', backgroundColor: colors.white }}>
+                  <Outlet />
+                  <ToastContainer />
+                </main>
+              </RequiredLoginErrorBoundary>
+              <Footer />
+            </SustainedResourceProvider>
+          </AuthContextProvider>
+        </AppContextProvider>
+      </Suspense>
       <ScrollRestoration />
       <Scripts />
       <LiveReload />

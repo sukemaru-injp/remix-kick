@@ -12,7 +12,11 @@ export const useGetResidentsRepository = (uid: string): GetResidentsRepository =
   const { supabaseClient } = useAppContext();
   async function getResidents(): RepositoryResult<readonly Resident[]> {
     try {
-      const { data, error } = await supabaseClient.from('residents').select().gte('uid', uid);
+      const { data, error } = await supabaseClient
+        .from('residents')
+        .select()
+        .gte('uid', uid)
+        .eq('is_deleted', false);
       if (error !== null) {
         return err({ kind: 'unknownError', error });
       }
