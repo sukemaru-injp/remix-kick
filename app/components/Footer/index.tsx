@@ -9,9 +9,6 @@ export const Footer: React.FC = () => {
         <Link to='/' color='sub'>
           お問い合わせ
         </Link>
-        <Link to='/terms' color='sub'>
-          利用規約
-        </Link>
         <Link to='/privacy' color='sub'>
           プライバシーポリシー
         </Link>
