@@ -1,5 +1,5 @@
-import { style } from "@vanilla-extract/css";
-import { spacing, colors } from "../common/style";
+import { style } from '@vanilla-extract/css';
+import { spacing, colors } from '../common/style';
 
 export const footer = style({
   display: 'flex',

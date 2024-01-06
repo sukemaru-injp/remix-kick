@@ -13,3 +13,4 @@ export { Button } from './Button';
 export { LinkStyledButton } from './LinkStyledButton';
 export { Loader } from './Loader';
 export { Text } from './Text';
+export { Tooltip } from './Tooltip';

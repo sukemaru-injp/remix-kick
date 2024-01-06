@@ -6,9 +6,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Teams(): JSX.Element {
-  return (
-    <>
-      利用規約
-    </>
-  )
+  return <>利用規約</>;
 }
