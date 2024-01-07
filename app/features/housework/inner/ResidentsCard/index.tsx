@@ -36,8 +36,10 @@ type MainSectionProps = {
   residents: readonly Resident[];
 };
 const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
+  const [, updateDeleteTarget] = useState<string>('');
+
   const onClickDelete = useCallback((id: string) => {
-    console.log('fireeee', id);
+    updateDeleteTarget(id);
   }, []);
 
   return (
