@@ -36,6 +36,10 @@ type MainSectionProps = {
   residents: readonly Resident[];
 };
 const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
+  const onClickDelete = useCallback((id: string) => {
+    console.log('fireeee', id);
+  }, []);
+
   return (
     <div className={styles.mainSection}>
       {residents.length === 0 ? (
@@ -43,7 +47,7 @@ const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
       ) : (
         <>
           {residents.map((r) => {
-            return <Row key={r.id} resident={r} />;
+            return <Row key={r.id} resident={r} onClickDelete={onClickDelete} />;
           })}
         </>
       )}
@@ -51,12 +55,20 @@ const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
   );
 };
 
-function Row({ resident }: { resident: Resident }): JSX.Element {
+type RowProps = {
+  resident: Resident;
+  onClickDelete: (id: string) => void;
+};
+function Row({ resident, onClickDelete }: RowProps): JSX.Element {
+  const handleClickDelete = useCallback(() => {
+    onClickDelete(resident.id);
+  }, [onClickDelete, resident.id]);
+
   return (
     <div className={styles.row}>
       <Text>{resident.name}</Text>
       <div className={styles.icons}>
-        <IconWrapper icon={DeleteIcon} color='red' />
+        <IconWrapper icon={DeleteIcon} color='red' onClick={handleClickDelete} />
       </div>
     </div>
   );
