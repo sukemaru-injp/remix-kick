@@ -20,7 +20,7 @@ export function Modal({ children, onClose, ...props }: Props): JSX.Element {
   );
 
   return (
-    <ReactModal isOpen={props.isOpen} className={styled.modal}>
+    <ReactModal isOpen={props.isOpen} className={styled.modal} overlayClassName={styled.overlay}>
       <div className={styled.mainArea}>{children}</div>
       <div className={styled.footerArea}>
         <Button onClick={close} color='secondary'>

@@ -17,3 +17,5 @@ export const spacing = {
 export const radius = '8px';
 
 export const borderDefault = `1px solid ${colors.border}`;
+
+export const fixedBg = 'rgba(204, 204, 255, 30%)';

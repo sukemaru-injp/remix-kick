@@ -1,5 +1,5 @@
 import { style, keyframes } from '@vanilla-extract/css';
-import { colors, spacing } from '~/components/common/style';
+import { colors, spacing, fixedBg } from '~/components/common/style';
 /* HTML: <div class="loader"></div> */
 
 const rotate = keyframes({
@@ -29,5 +29,5 @@ export const container = style({
   justifyContent: 'center',
   alignItems: 'center',
   zIndex: 999,
-  backgroundColor: 'rgba(204, 204, 255, 30%)',
+  backgroundColor: fixedBg,
 });
