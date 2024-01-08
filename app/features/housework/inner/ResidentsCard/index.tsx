@@ -8,6 +8,8 @@ import {
   Text,
   DeleteIcon,
   IconWrapper,
+  EditIcon,
+  Modal,
 } from '~/components/Elements';
 import { Input } from '~/components/Form';
 import { Resident } from '../../model/Resident';
@@ -37,9 +39,20 @@ type MainSectionProps = {
 };
 const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
   const [, updateDeleteTarget] = useState<string>('');
+  const [isOpen, setIsOpen] = useState(false);
 
   const onClickDelete = useCallback((id: string) => {
     updateDeleteTarget(id);
+    setIsOpen(true);
+  }, []);
+
+  const cancelDelete = useCallback(() => {
+    updateDeleteTarget('');
+    setIsOpen(false);
+  }, []);
+
+  const onClickEdit = useCallback((id: string) => {
+    console.log(`not impl edit ${id}`);
   }, []);
 
   return (
@@ -49,28 +62,42 @@ const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
       ) : (
         <>
           {residents.map((r) => {
-            return <Row key={r.id} resident={r} onClickDelete={onClickDelete} />;
+            return (
+              <React.Fragment key={r.id}>
+                <Row resident={r} onClickDelete={onClickDelete} onClickEdit={onClickEdit} />
+              </React.Fragment>
+            );
           })}
         </>
       )}
+
+      <Modal isOpen={isOpen} onClose={cancelDelete}>
+        delete confirm
+      </Modal>
     </div>
   );
 };
 
 type RowProps = {
   resident: Resident;
+  onClickEdit: (id: string) => void;
   onClickDelete: (id: string) => void;
 };
-function Row({ resident, onClickDelete }: RowProps): JSX.Element {
-  const handleClickDelete = useCallback(() => {
+function Row({ resident, onClickDelete, onClickEdit }: RowProps): JSX.Element {
+  const handleDelete = useCallback(() => {
     onClickDelete(resident.id);
   }, [onClickDelete, resident.id]);
+
+  const handleEdit = useCallback(() => {
+    onClickEdit(resident.id);
+  }, [onClickEdit, resident.id]);
 
   return (
     <div className={styles.row}>
       <Text>{resident.name}</Text>
       <div className={styles.icons}>
-        <IconWrapper icon={DeleteIcon} color='red' onClick={handleClickDelete} />
+        <IconWrapper icon={EditIcon} color='primary' onClick={handleEdit} />
+        <IconWrapper icon={DeleteIcon} color='red' onClick={handleDelete} />
       </div>
     </div>
   );

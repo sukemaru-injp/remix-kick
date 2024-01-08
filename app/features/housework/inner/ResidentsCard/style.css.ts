@@ -55,5 +55,5 @@ export const row = style({
 export const icons = style({
   display: 'flex',
   alignItems: 'center',
-  gap: spacing.s,
+  gap: spacing.m,
 });
