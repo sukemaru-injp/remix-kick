@@ -18,6 +18,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { colors } from './components/common/style';
 
+// import { createServerClient } from '@supabase/auth-helpers-remix';
+
 export const links: LinksFunction = () => [
   ...(cssBundleHref
     ? [
@@ -29,6 +31,7 @@ export const links: LinksFunction = () => [
 
 type LoaderData = {
   supabaseConnect: SupabaseConnect;
+  // session: Session | null;
 };
 
 export const loader: LoaderFunction = async () => {
@@ -36,6 +39,17 @@ export const loader: LoaderFunction = async () => {
     supabaseUrl: process.env.SUPABASE_URL ?? '',
     supabaseKey: process.env.SUPABASE_ANON_KEY ?? '',
   };
+
+  // https://supabase.com/docs/guides/auth/auth-helpers/remix
+  // const response = new Response();
+  // const supabaseClient = createServerClient(
+  //   supabaseConnect.supabaseUrl,
+  //   supabaseConnect.supabaseKey,
+  //   { request, response },
+  // );
+  // const {
+  //   data: { session },
+  // } = await supabaseClient.auth.getSession();
 
   return json({ supabaseConnect });
 };
