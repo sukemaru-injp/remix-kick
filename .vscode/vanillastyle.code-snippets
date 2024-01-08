@@ -1,0 +1,14 @@
+{
+  "vanillastyle": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "vanillastyle",
+    "body": [
+      "import { style } from '@vanilla-extract/css';",
+			"import { spacing } from '~/components/common/style';",
+      "",
+      "export const wrapper = style({});",
+      ""
+    ],
+    "description": "vanilla extract styling template"
+  }
+}
