@@ -38,16 +38,32 @@ type MainSectionProps = {
   residents: readonly Resident[];
 };
 const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
-  const [, updateDeleteTarget] = useState<string>('');
+  const [deleteTarget, updateDeleteTarget] = useState<Resident | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const onClickDelete = useCallback((id: string) => {
-    updateDeleteTarget(id);
-    setIsOpen(true);
-  }, []);
+  const [loading, setLoading] = useState(false);
+
+  const onClickDelete = useCallback(
+    (id: string) => {
+      const target = residents.find((r) => r.id === id);
+      if (target == null) {
+        return;
+      }
+      updateDeleteTarget(target);
+      setIsOpen(true);
+    },
+    [residents],
+  );
+
+  const submitDelete = useCallback(() => {
+    setLoading(true);
+    if (deleteTarget == null) {
+      throw new Error('対象が存在しません');
+    }
+  }, [deleteTarget]);
 
   const cancelDelete = useCallback(() => {
-    updateDeleteTarget('');
+    updateDeleteTarget(null);
     setIsOpen(false);
   }, []);
 
@@ -71,8 +87,17 @@ const MainSection: React.FC<MainSectionProps> = ({ residents }) => {
         </>
       )}
 
-      <Modal isOpen={isOpen} onClose={cancelDelete}>
-        delete confirm
+      <Modal
+        isOpen={isOpen}
+        onClose={cancelDelete}
+        disabledClose={loading}
+        primaryButton={{
+          disabled: loading,
+          children: '削除',
+          onClick: submitDelete,
+        }}
+      >
+        {deleteTarget && <Text>{deleteTarget.name}を削除します。この操作は取り消せません。</Text>}
       </Modal>
     </div>
   );

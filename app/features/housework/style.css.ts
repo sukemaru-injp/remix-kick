@@ -7,6 +7,7 @@ export const wrapper = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: spacing.m,
+  padding: `${spacing.m} 0`,
 });
 
 export const header = style({

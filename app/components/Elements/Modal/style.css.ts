@@ -12,6 +12,7 @@ export const overlay = style({
   alignItems: 'center',
   zIndex: 999,
   backgroundColor: fixedBg,
+  padding: spacing.m,
 });
 
 export const modal = style({
@@ -22,13 +23,21 @@ export const modal = style({
   margin: 'auto',
 });
 
+export const inner = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: spacing.m,
+});
+
 export const mainArea = style({
   display: 'block',
 });
 
 export const footerArea = style({
+  width: '100%',
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  gap: spacing.s,
+  gap: spacing.m,
 });

@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useMemo, Suspense, useReducer } from 'react';
 import * as styles from './style.css';
 import { ResidentsCard } from './inner/ResidentsCard';
+import { HouseworkCard } from './inner/HouseworkCard';
 import { addMonths, subMonths, format } from 'date-fns';
 import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon, Loader } from '~/components/Elements';
 import { useGetResidentsRepository } from './repository/getResidentsRepository';
@@ -58,6 +59,8 @@ export const Housework: React.FC<Props> = ({ uid }) => {
           forceUpdate={forceUpdate}
         />
       </Suspense>
+
+      <HouseworkCard uid={uid} />
     </div>
   );
 };
