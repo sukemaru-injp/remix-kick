@@ -5,6 +5,8 @@ import { LoginCard } from './inner/LoginCard';
 import { SignOutSection } from './inner/SignOutSection';
 import { useAuthContext } from '~/provider/AuthContext';
 
+export const add = (a: number, b: number) => a + b;
+
 export const RootPage: React.FC = () => {
   const auth = useAuthContext();
   return (
