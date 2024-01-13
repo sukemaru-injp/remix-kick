@@ -7,6 +7,7 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@re
 import globalStyles from './styles/global.css';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { Loader } from './components/Elements';
 import { LoaderFunction } from '@remix-run/node';
 import { useSupabase, SupabaseConnect } from './libs/supabase';
 import { AuthContextProvider } from './provider/AuthContext';
@@ -76,7 +77,7 @@ const Layout = () => {
 
   return (
     <>
-      <Suspense fallback={<>Loading...</>}>
+      <Suspense fallback={<Loader />}>
         <AppContextProvider supabaseClient={client}>
           <AuthContextProvider authClient={client.auth}>
             <SustainedResourceProvider>

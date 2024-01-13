@@ -60,7 +60,9 @@ export const Housework: React.FC<Props> = ({ uid }) => {
         />
       </Suspense>
 
-      <HouseworkCard uid={uid} />
+      <Suspense fallback={<Loader />}>
+        <HouseworkCard uid={uid} />
+      </Suspense>
     </div>
   );
 };

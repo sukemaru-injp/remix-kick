@@ -6,3 +6,18 @@ export const inner = style({
   flexDirection: 'column',
   gap: spacing.s,
 });
+
+export const footer = style({
+  padding: spacing.s,
+});
+
+export const footerButton = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
+});
+
+export const formButtonSection = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: spacing.s,
+});
