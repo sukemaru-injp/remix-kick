@@ -20,6 +20,12 @@ export const RootPage: React.FC = () => {
       </div>
 
       <div>
+        <Link to='/three' color='link'>
+          to three
+        </Link>
+      </div>
+
+      <div>
         <LoginCard />
       </div>
 
