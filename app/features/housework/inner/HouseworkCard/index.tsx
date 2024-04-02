@@ -22,12 +22,14 @@ const Footer = (): JSX.Element => {
 
   const cancel = useCallback(() => {
     setAddMode(false);
-  }, [])
+  }, []);
 
   return (
     <div>
       {addMode ? (
-        <><Form cancel={cancel} loading={false} /></>
+        <>
+          <Form cancel={cancel} loading={false} />
+        </>
       ) : (
         <div className={styled.footerButton}>
           <LinkStyledButton icon={AddIcon} onClick={add}>
@@ -47,9 +49,7 @@ type FormProps = {
 const Form = ({ cancel, loading }: FormProps): JSX.Element => {
   return (
     <form>
-      <div>
-        form inner
-      </div>
+      <div>form inner</div>
       <div className={styled.formButtonSection}>
         <Button color='secondary' onClick={cancel} disabled={loading} type='button'>
           キャンセル
