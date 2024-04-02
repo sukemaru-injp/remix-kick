@@ -13,6 +13,7 @@ export const RootPage: React.FC = () => {
   return (
     <div className={styles.root}>
       <Top />
+      <div>Test</div>
       <div>
         <Link to='/housework' color='link'>
           to housework
