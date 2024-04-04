@@ -11,6 +11,7 @@ export default function HouseworkPage(): JSX.Element {
     <>
       <div>ThreeTesting</div>
       <div>ThreeTesting1</div>
+      <div>ThreeTesting2</div>
       <ThreeTesting />
     </>
   );
