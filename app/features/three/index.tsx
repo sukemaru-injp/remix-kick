@@ -1,15 +1,16 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
+import { wrapper } from './style.css';
 
 export const ThreeTesting = () => {
   return (
-    <div>
+    <div className={wrapper}>
       <Canvas>
         <ambientLight intensity={0.1} />
         <directionalLight color='orange' position={[0, 0, 5]} />
-        <Box position={[2, 0, 0]} />
-        <Box position={[-2, 1, 0]} />
+        <Box position={[4, 0, 0]} />
+        <Box position={[-4, 1, 0]} />
       </Canvas>
     </div>
   );
@@ -23,7 +24,10 @@ const Box: React.FC<{ position: [x: number, y: number, z: number] }> = ({ positi
 
   return (
     <mesh ref={mesh} scale={1} position={position}>
-      <boxGeometry args={[1, 1, 1]} />
+      {/* 縦・横・奥行き */}
+      <boxGeometry args={[3, 3, 3]} />
+      <ambientLight intensity={0.1} />
+      <spotLight position={[10, 10, 10]} penumbra={2} />
       <meshStandardMaterial />
     </mesh>
   );
