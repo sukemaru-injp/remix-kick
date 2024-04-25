@@ -5,7 +5,7 @@ import { LoginCard } from './inner/LoginCard';
 import { SignOutSection } from './inner/SignOutSection';
 import { Top } from './inner/Top';
 import { useAuthContext } from '~/provider/AuthContext';
-
+import { DragTesting } from './inner/DragTesting';
 export const add = (a: number, b: number) => a + b;
 
 export const RootPage: React.FC = () => {
@@ -27,6 +27,10 @@ export const RootPage: React.FC = () => {
 
       <div>
         <LoginCard />
+      </div>
+
+      <div>
+        <DragTesting />
       </div>
 
       {auth.status === 'signedIn' && (
