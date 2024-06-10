@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { Suspense, useMemo } from 'react';
 import * as styles from './style.css';
 import { Card } from '~/components/Elements';
+import { useResourcePoolContext, Resource, CachedResource } from '~/utils/suspense';
+
+const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
 
 export const Top: React.FC = () => {
+  const resourcePool = useResourcePoolContext();
+
+  const getResource = useMemo(
+    () =>
+      resourcePool.get(`get`, () => {
+        return Resource.set(async () => {
+          await sleep(5000);
+          return 'ok:test';
+        });
+      }),
+    [resourcePool],
+  );
   return (
     <div className={styles.wrapper}>
       <div className={styles.top}>
@@ -22,6 +37,15 @@ export const Top: React.FC = () => {
           <></>
         </Card>
       </div>
+
+      <Suspense fallback={<div>loading...</div>}>
+        <Presenter resource={getResource} />
+      </Suspense>
     </div>
   );
+};
+
+const Presenter: React.FC<{ resource: CachedResource<string> }> = ({ resource }) => {
+  const val = resource.read();
+  return <>{val}</>;
 };
