@@ -5,7 +5,7 @@ import { HouseworkCard } from './inner/HouseworkCard';
 import { addMonths, subMonths, format } from 'date-fns';
 import { Card, IconWrapper, RightArrowIcon, LeftArrowIcon, Loader } from '~/components/Elements';
 import { useGetResidentsRepository } from './repository/getResidentsRepository';
-import { useSustainedResourceContext, Resource } from '~/utils/suspense';
+import { useResourcePoolContext, Resource } from '~/utils/suspense';
 import { useToast } from '~/utils/toast';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const Housework: React.FC<Props> = ({ uid }) => {
-  const sustained = useSustainedResourceContext();
+  const sustained = useResourcePoolContext();
 
   const toast = useToast();
 

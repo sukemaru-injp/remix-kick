@@ -1,13 +1,10 @@
 type ResourceSet<T> =
   | { status: 'pending' }
   | { status: 'fulfilled'; value: T }
-  | { status: 'rejected'; value: Error };
+  | { status: 'rejected'; value: unknown };
 
 type ResourceResolver<T> = () => Promise<T>;
 const emptyResult = Symbol('emptyResult');
-export type ResourceType<T> = {
-  read: () => T;
-};
 
 export class Resource<T> {
   protected resourceSet: ResourceSet<T> = { status: 'pending' };
@@ -20,7 +17,7 @@ export class Resource<T> {
   }
 
   public static set<T>(resolver: ResourceResolver<T>) {
-    const resource = new this(resolver);
+    const resource = new Resource(resolver);
     resource.resolve();
     return resource;
   }
@@ -36,11 +33,10 @@ export class Resource<T> {
         };
         return val;
       })
-      .catch<typeof emptyResult>((err) => {
-        const error = !(err instanceof Error) ? new Error(JSON.stringify(err)) : err;
+      .catch<typeof emptyResult>((err: unknown) => {
         this.resourceSet = {
           status: 'rejected',
-          value: error,
+          value: err,
         };
         return emptyResult;
       });
@@ -57,7 +53,7 @@ export class Resource<T> {
       case 'rejected':
         throw this.resourceSet.value;
       default:
-        throw new Error('state of undefined');
+        throw new Error('予想外');
     }
   }
 }

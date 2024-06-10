@@ -1,6 +1,3 @@
 export { Resource } from './Resource';
-export { SustainedResource, CachedResource } from './SustainedResource';
-export {
-  SustainedResourceProvider,
-  useSustainedResourceContext,
-} from './SustainedResourceProvider';
+export { ResourcePool, CachedResource } from './ResourcePool';
+export { ResourcePoolProvider, useResourcePoolContext } from './Context';

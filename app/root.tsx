@@ -12,7 +12,7 @@ import { LoaderFunction } from '@remix-run/node';
 import { useSupabase, SupabaseConnect } from './libs/supabase';
 import { AuthContextProvider } from './provider/AuthContext';
 import { AppContextProvider } from './provider/AppContext';
-import { SustainedResourceProvider } from './utils/suspense';
+import { ResourcePoolProvider } from './utils/suspense';
 import { RequiredLoginErrorBoundary } from './utils/RequiredLogin';
 // react-toastify
 import { ToastContainer } from 'react-toastify';
@@ -80,7 +80,7 @@ const Layout = () => {
       <Suspense fallback={<Loader />}>
         <AppContextProvider supabaseClient={client}>
           <AuthContextProvider authClient={client.auth}>
-            <SustainedResourceProvider>
+            <ResourcePoolProvider>
               <Header />
               <RequiredLoginErrorBoundary>
                 <main style={{ minHeight: '100vh', backgroundColor: colors.white }}>
@@ -89,7 +89,7 @@ const Layout = () => {
                 </main>
               </RequiredLoginErrorBoundary>
               <Footer />
-            </SustainedResourceProvider>
+            </ResourcePoolProvider>
           </AuthContextProvider>
         </AppContextProvider>
       </Suspense>

@@ -2,9 +2,11 @@ import { Resource } from './Resource';
 
 class CacheMap<T> {
   protected map: Map<string, T>;
+  protected capacity: number;
 
-  public constructor() {
+  public constructor(capacity: number) {
     this.map = new Map();
+    this.capacity = capacity;
   }
 
   public get(key: string): T | null {
@@ -18,6 +20,10 @@ class CacheMap<T> {
   }
 
   public set(key: string, value: T): void {
+    if (this.map.size === this.capacity) {
+      const oldestKey = this.map.keys().next().value;
+      this.map.delete(oldestKey);
+    }
     this.map.set(key, value);
   }
 
@@ -46,12 +52,12 @@ export class CachedResource<T> {
   }
 }
 
-export class SustainedResource {
+export class ResourcePool {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   protected cache: CacheMap<any>;
 
-  constructor() {
-    this.cache = new CacheMap();
+  constructor(capacity: number) {
+    this.cache = new CacheMap(capacity);
   }
 
   public get<T>(key: string, resourceBuilder: () => Resource<T>): CachedResource<T> {
